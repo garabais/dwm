@@ -21,7 +21,8 @@ necessary as root):
 
 Running dwm
 -----------
-Add the following line to your .xinitrc to start dwm using startx:
+You can select 'dwm' in your display manager or add the 
+following line to your .xinitrc to start dwm using startx:
 
     exec dwm
 
@@ -31,6 +32,10 @@ the DISPLAY environment variable is set correctly, e.g.:
     DISPLAY=foo.bar:1 exec dwm
 
 (This will start dwm on display :1 of the host foo.bar.)
+
+If you want to launch other programs on startup you should add 
+to your .xsession or .xinitrc depending if you use a display
+manager or startx.
 
 In order to display status info in the bar, you can do something
 like this in your .xinitrc:
