@@ -60,16 +60,27 @@ click on a tag label adds/removes that tag to/from the focused window.
 Start
 .BR alacritty(1).
 .TP
-.B Mod4\-space
+.B Mod4\-Space [Mod4\-Shift\-Space]
 Spawn
 .BR rofi(1)
-for launching other programs.
+for launching other programs [with gpu].
 .TP
-.TP
-.B Mod4\-Shift\-space
+.B Mod4\-n [Mod4\-Shift\-n]
 Spawn
+.BR google-chrome(1)
+browser [in incognito].
+.TP
+.B Mod4\-p
+Take a screenshot and copy it to the clipboard using
+.BR maim(1)
+and
+.BR xclip(1).
+.TP
+.B Mod4\-`
+Open unipicker unicode selector using
 .BR rofi(1)
-for launching other programs with the GPU.
+and copy the character with
+.BR xclip(1).
 .TP
 .B Mod4\-w
 Close focused window.

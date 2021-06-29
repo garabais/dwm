@@ -61,12 +61,22 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *launchercmd[]  = { "rofi", "-show", NULL };
 static const char *gpulaunchercmd[]  = { "prime-run", "rofi", "-show", NULL };
+static const char *powermenucmd[]  = { "powermenu", NULL };
+static const char *browsercmd[]  = { "google-chrome-stable", NULL };
+static const char *incognitobrowsercmd[]  = { "google-chrome-stable", "--incognito", NULL };
+static const char *unicodeselectorcmd[]  = { "unipicker", "--command", "rofi -dmenu", "--copy",NULL };
+static const char screenshotcmd[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
 
 static Key keys[] = {
 	/* modifier                     key                 function            argument */
 	{ MODKEY,                       XK_space,           spawn,              {.v = launchercmd } },
 	{ MODKEY|ShiftMask,             XK_space,           spawn,              {.v = gpulaunchercmd } },
 	{ MODKEY,                       XK_Return,          spawn,              {.v = termcmd } },
+	{ MODKEY,                       XK_Escape,          spawn,              {.v = powermenucmd } },
+	{ MODKEY,                       XK_n,               spawn,              {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_n,               spawn,              {.v = incognitobrowsercmd } },
+	{ MODKEY,                       XK_grave,           spawn,              {.v = unicodeselectorcmd } },
+	{ MODKEY,                       XK_p,               spawn,              SHCMD(screenshotcmd) },
 	{ MODKEY,                       XK_b,               togglebar,          {0} },
 	{ MODKEY,                       XK_j,               focusstack,         {.i = +1 } },
 	{ MODKEY,                       XK_k,               focusstack,         {.i = -1 } },
