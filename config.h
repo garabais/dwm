@@ -67,6 +67,7 @@ static const char *incognitobrowsercmd[]  = { "google-chrome-stable", "--incogni
 static const char *unicodeselectorcmd[]  = { "unipicker", "--command", "rofi -dmenu", "--copy",NULL };
 static const char screenshotcmd[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
 
+#include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key                 function            argument */
 	{ MODKEY,                       XK_space,           spawn,              {.v = launchercmd } },
@@ -80,6 +81,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,               togglebar,          {0} },
 	{ MODKEY,                       XK_j,               focusstack,         {.i = +1 } },
 	{ MODKEY,                       XK_k,               focusstack,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,               movestack,          {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,               movestack,          {.i = -1 } },
 	{ MODKEY,                       XK_i,               incnmaster,         {.i = +1 } },
 	{ MODKEY,                       XK_d,               incnmaster,         {.i = -1 } },
 	{ MODKEY,                       XK_h,               setmfact,           {.f = -0.05} },
