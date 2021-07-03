@@ -6,7 +6,6 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Noto Sans:size=13", "monospace:size=10" };
-static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#2E3440";
 static const char col_gray2[]       = "#4C566A";
 static const char col_gray3[]       = "#ECEFF4";
@@ -56,8 +55,6 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *launchercmd[]  = { "rofi", "-show", NULL };
 static const char *gpulaunchercmd[]  = { "prime-run", "rofi", "-show", NULL };
