@@ -198,6 +198,43 @@ Toggles focused window between floating and tiled state.
 .TP
 .B Mod4\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to the floating state.
+.SS Media keys
+.TP
+.B Play
+Uses
+.BR playerctl(1)
+to toggle play and pause.
+.TP
+.B Mute
+Uses
+.BR playerctl(1)
+to toggle mute.
+.TP
+.B Next song
+Uses
+.BR playerctl(1)
+to change to next song.
+.TP
+.B Previous song
+Uses
+.BR playerctl(1)
+to change to previous song.
+.TP
+.B Volume up
+Uses
+.BR pulsemixer
+to increase the volume by 1 or 10 using shift.
+.TP
+.B Volume down
+Uses
+.BR pulsemixer
+to decrease the volume by 1 or 10 using shift.
+.TP
+.B Brightness up
+Uses a custom scrip to increase brightness.
+.TP
+.B Brightness down
+Uses a custom scrip to decrease brightness.
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.

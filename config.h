@@ -51,6 +51,17 @@ static const Layout layouts[] = {
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
+/* Special keys short definition */
+#include <X11/XF86keysym.h>
+#define XK_BrightnessUp      XF86XK_MonBrightnessUp
+#define XK_BrightnessDown    XF86XK_MonBrightnessDown
+#define XK_AudioUp           XF86XK_AudioRaiseVolume
+#define XK_AudioDown         XF86XK_AudioLowerVolume
+#define XK_AudioMute         XF86XK_AudioMute
+#define XK_AudioPlay         XF86XK_AudioPlay
+#define XK_AudioNext         XF86XK_AudioNext
+#define XK_AudioPrev         XF86XK_AudioPrev
+
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
@@ -63,8 +74,19 @@ static const char *browsercmd[]  = { "google-chrome-stable", NULL };
 static const char *incognitobrowsercmd[]  = { "google-chrome-stable", "--incognito", NULL };
 static const char *unicodeselectorcmd[]  = { "unipicker", "--command", "rofi -dmenu", "--copy",NULL };
 static const char screenshotcmd[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
+static const char *brightnessupcmd[]  = { "backlight", "-i", "750", NULL };
+static const char *brightnessdowncmd[]  = { "backlight", "-d", "750", NULL };
+static const char *audioupcmd[]  = { "pulsemixer", "--change-volume", "+1", NULL };
+static const char *audiodowncmd[]  = { "pulsemixer", "--change-volume", "-1", NULL };
+static const char *audioupmulticmd[]  = { "pulsemixer", "--change-volume", "+10", NULL };
+static const char *audiodownmulticmd[]  = { "pulsemixer", "--change-volume", "-10", NULL };
+static const char *audiomutecmd[]  = { "pulsemixer", "--toggle-mute", NULL };
+static const char *audioplaycmd[]  = { "playerctl", "play-pause", NULL };
+static const char *audionextcmd[]  = { "playerctl", "next", NULL };
+static const char *audioprevcmd[]  = { "playerctl", "previous", NULL };
 
 #include "movestack.c"
+
 static Key keys[] = {
 	/* modifier                     key                 function                argument */
 	{ MODKEY,                       XK_space,           spawn,                  {.v = launchercmd } },
@@ -116,6 +138,16 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                                       7)
 	TAGKEYS(                        XK_9,                                       8)
 	{ MODKEY|ShiftMask,             XK_q,               quit,                   {0} },
+	{0,                             XK_BrightnessUp,    spawn,                  {.v = brightnessupcmd } },
+	{0,                             XK_BrightnessDown,  spawn,                  {.v = brightnessdowncmd } },
+	{0,                             XK_AudioUp,         spawn,                  {.v = audioupcmd } },
+	{0,                             XK_AudioDown,       spawn,                  {.v = audiodowncmd } },
+	{ShiftMask,                     XK_AudioUp,         spawn,                  {.v = audioupmulticmd } },
+	{ShiftMask,                     XK_AudioDown,       spawn,                  {.v = audiodownmulticmd } },
+	{0,                             XK_AudioMute,       spawn,                  {.v = audiomutecmd } },
+	{0,                             XK_AudioPlay,       spawn,                  {.v = audioplaycmd } },
+	{0,                             XK_AudioNext,       spawn,                  {.v = audionextcmd } },
+	{0,                             XK_AudioPrev,       spawn,                  {.v = audioprevcmd } },
 };
 
 /* button definitions */
