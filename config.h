@@ -9,16 +9,17 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const char *fonts[]          = { "Noto Sans:size=13", "monospace:size=10" };
-static const char col_gray1[]       = "#2E3440";
-static const char col_gray2[]       = "#4C566A";
-static const char col_gray3[]       = "#ECEFF4";
-static const char col_gray4[]       = "#434C5E";
-static const char col_cyan[]        = "#81A1C1";
+static const char col_black[]       = "#2E3440";
+static const char col_dark_gray[]   = "#4C566A";
+static const char col_light_gray[]  = "#ECEFF4";
+static const char col_white[]       = "#ECEFF4";
+static const char col_blue[]        = "#81A1C1";
+static const char col_dark_blue[]   = "#5E81AC";
 static const char *colors[][3]      = {
-	/*                 fg         bg         border   */
-	[SchemeNorm]   = { col_gray3, col_gray1,  col_gray2 },
-	[SchemeSel]    = { col_cyan,  col_gray4,  col_cyan  },
-	[SchemeTitle]  = { col_gray3, col_gray1,  col_gray2  },
+	/*                 fg              bg         border   */
+	[SchemeNorm]   = { col_white,      col_black, col_dark_gray },
+	[SchemeSel]    = { col_white,      col_blue,  col_dark_blue  },
+	[SchemeTitle]  = { col_light_gray, col_black, col_dark_gray  },
 };
 
 /* tagging */
