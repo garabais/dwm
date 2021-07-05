@@ -1175,7 +1175,7 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-	unsigned int n = 0;
+	unsigned int n = 0, gap = smartgaps ? 0 : gappx;
 	Client *c;
 
 	for (c = m->clients; c; c = c->next)
@@ -1185,8 +1185,8 @@ monocle(Monitor *m)
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
 	if (c && !c->isfloating) {
-		XMoveWindow(dpy, c->win, m->wx, m->wy);
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+		XMoveWindow(dpy, c->win, m->wx + gap, m->wy + gap);
+		resize(c, m->wx + gap, m->wy + gap, m->ww - 2 * c->bw - gap * 2, m->wh - 2 * c->bw - gap * 2, 0);
 		c = c->snext;
 	}
 	for (; c; c = c->snext)
@@ -1908,28 +1908,39 @@ tagswapmon(const Arg *arg)
 void
 tile(Monitor *m)
 {
-	unsigned int i, n, h, mw, my, ty;
+	unsigned int i, n, h, mw, my, ty, ns, gap;
 	Client *c;
+
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
 
-	if (n > m->nmaster)
+	if (smartgaps == n) {
+		gap = 0; // gaps disabled
+	} else {
+		gap = gappx;
+	}
+
+
+	if (n > m->nmaster) {
 		mw = m->nmaster ? m->ww * m->mfact : 0;
-	else
+		ns = m->nmaster > 0 ? 2 : 1;
+	} else {
 		mw = m->ww;
-	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		ns = 1;
+	}
+	for(i = 0, my = ty = gap, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c);
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - gap;
+			resize(c, m->wx + gap, m->wy + my, mw - (2*c->bw) - gap*(5-ns)/2, h - (2*c->bw), False);
+			if (my + HEIGHT(c) + gap < m->wh)
+				my += HEIGHT(c) + gap;
 		} else {
-			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c);
+			h = (m->wh - ty) / (n - i) - gap;
+			resize(c, m->wx + mw + gap/ns, m->wy + ty, m->ww - mw - (2*c->bw) - gap*(5-ns)/2, h - (2*c->bw), False);
+			if (ty + HEIGHT(c) + gap < m->wh)
+				ty += HEIGHT(c) + gap;
 		}
 }
 
