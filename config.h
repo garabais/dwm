@@ -71,24 +71,26 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *termcmd[]  = { "alacritty", NULL };
-static const char *launchercmd[]  = { "rofi", "-show", NULL };
-static const char *gpulaunchercmd[]  = { "prime-run", "rofi", "-show", NULL };
-static const char *powermenucmd[]  = { "powermenu", NULL };
-static const char *browsercmd[]  = { "google-chrome-stable", NULL };
+static const char *termcmd[]              = { "alacritty", NULL };
+static const char *launchercmd[]          = { "rofi", "-show", NULL };
+static const char *gpulaunchercmd[]       = { "prime-run", "rofi", "-show", NULL };
+static const char *browsercmd[]           = { "google-chrome-stable", NULL };
 static const char *incognitobrowsercmd[]  = { "google-chrome-stable", "--incognito", NULL };
-static const char *unicodeselectorcmd[]  = { "unipicker", "--command", "rofi -dmenu", "--copy",NULL };
-static const char screenshotcmd[] = "maim -s -u | xclip -selection clipboard -t image/png -i";
-static const char *brightnessupcmd[]  = { "backlight", "-i", "750", NULL };
-static const char *brightnessdowncmd[]  = { "backlight", "-d", "750", NULL };
-static const char *audioupcmd[]  = { "pulsemixer", "--change-volume", "+1", NULL };
-static const char *audiodowncmd[]  = { "pulsemixer", "--change-volume", "-1", NULL };
-static const char *audioupmulticmd[]  = { "pulsemixer", "--change-volume", "+10", NULL };
-static const char *audiodownmulticmd[]  = { "pulsemixer", "--change-volume", "-10", NULL };
-static const char *audiomutecmd[]  = { "pulsemixer", "--toggle-mute", NULL };
-static const char *audioplaycmd[]  = { "playerctl", "play-pause", NULL };
-static const char *audionextcmd[]  = { "playerctl", "next", NULL };
-static const char *audioprevcmd[]  = { "playerctl", "previous", NULL };
+static const char *unicodeselectorcmd[]   = { "unipicker", "--command", "rofi -dmenu", "--copy",NULL };
+static const char *audioplaycmd[]         = { "playerctl", "play-pause", NULL };
+static const char *audionextcmd[]         = { "playerctl", "next", NULL };
+static const char *audioprevcmd[]         = { "playerctl", "previous", NULL };
+
+/* custom scripts */
+static const char powermenucmd[]       = "~/.local/bin/powermenu";
+static const char brightnessupcmd[]    = "~/.local/bin/backlight -i 750";
+static const char brightnessdowncmd[]  = "~/.local/bin/backlight -d 750";
+static const char audioupcmd[]         = "pulsemixer --change-volume +1 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
+static const char audiodowncmd[]       = "pulsemixer --change-volume -1 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
+static const char audioupmulticmd[]    = "pulsemixer --change-volume +10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
+static const char audiodownmulticmd[]  = "pulsemixer --change-volume -10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
+static const char audiomutecmd[]       = "pulsemixer --toggle-mute && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
+static const char screenshotcmd[]      = "maim -s -u | xclip -selection clipboard -t image/png -i";
 
 #include "movestack.c"
 
@@ -97,7 +99,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,           spawn,                  {.v = launchercmd } },
 	{ MODKEY|ShiftMask,             XK_space,           spawn,                  {.v = gpulaunchercmd } },
 	{ MODKEY,                       XK_Return,          spawn,                  {.v = termcmd } },
-	{ MODKEY,                       XK_Escape,          spawn,                  {.v = powermenucmd } },
+	{ MODKEY,                       XK_Escape,          spawn,                  SHCMD(powermenucmd) },
 	{ MODKEY,                       XK_n,               spawn,                  {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_n,               spawn,                  {.v = incognitobrowsercmd } },
 	{ MODKEY,                       XK_grave,           spawn,                  {.v = unicodeselectorcmd } },
@@ -143,13 +145,13 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                                       7)
 	TAGKEYS(                        XK_9,                                       8)
 	{ MODKEY|ShiftMask,             XK_q,               quit,                   {0} },
-	{0,                             XK_BrightnessUp,    spawn,                  {.v = brightnessupcmd } },
-	{0,                             XK_BrightnessDown,  spawn,                  {.v = brightnessdowncmd } },
-	{0,                             XK_AudioUp,         spawn,                  {.v = audioupcmd } },
-	{0,                             XK_AudioDown,       spawn,                  {.v = audiodowncmd } },
-	{ShiftMask,                     XK_AudioUp,         spawn,                  {.v = audioupmulticmd } },
-	{ShiftMask,                     XK_AudioDown,       spawn,                  {.v = audiodownmulticmd } },
-	{0,                             XK_AudioMute,       spawn,                  {.v = audiomutecmd } },
+	{0,                             XK_BrightnessUp,    spawn,                  SHCMD(brightnessupcmd ) },
+	{0,                             XK_BrightnessDown,  spawn,                  SHCMD(brightnessdowncmd ) },
+	{0,                             XK_AudioUp,         spawn,                  SHCMD(audioupcmd ) },
+	{0,                             XK_AudioDown,       spawn,                  SHCMD(audiodowncmd ) },
+	{ShiftMask,                     XK_AudioUp,         spawn,                  SHCMD(audioupmulticmd ) },
+	{ShiftMask,                     XK_AudioDown,       spawn,                  SHCMD(audiodownmulticmd ) },
+	{0,                             XK_AudioMute,       spawn,                  SHCMD(audiomutecmd ) },
 	{0,                             XK_AudioPlay,       spawn,                  {.v = audioplaycmd } },
 	{0,                             XK_AudioNext,       spawn,                  {.v = audionextcmd } },
 	{0,                             XK_AudioPrev,       spawn,                  {.v = audioprevcmd } },
