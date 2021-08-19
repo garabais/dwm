@@ -74,7 +74,38 @@ browser [in incognito].
 Take a screenshot and copy it to the clipboard using
 .BR maim(1)
 and
-.BR xclip(1).
+.BR xclip(1)
+[custom script].
+.TP
+.B Mod4\-Shift\-p
+Take a screenshot and copy it to the clipboard using
+.BR maim(1)
+and
+.BR xclip(1)
+and display the image using
+.BR feh(1)
+[custom script].
+.TP
+.B Mod4\-Control\-p
+Take a screenshot of the monitor where the mouse and copy it to the clipboard using
+.BR maim(1)
+and
+.BR xclip(1)
+[custom script].
+.TP
+.B Mod4\-Shift-Control\-p
+Take a screenshot of the monitor where the mouse is and copy it to the clipboard using
+.BR maim(1)
+and
+.BR xclip(1)
+and display the image using
+.BR feh(1)
+[custom script].
+.TP
+.B Mod4\-Escape
+Use 
+.BR rofi(1)
+to display a powermenu [custom script].
 .TP
 .B Mod4\-`
 Open unipicker unicode selector using
@@ -96,6 +127,7 @@ Send focused window to previous screen, if any.
 .TP
 .B Mod4\-Shift\-.
 Send focused window to next screen, if any.
+.TP
 .B Mod4\-Control\-[
 Swap focused screen with the previous one, if any.
 .TP
@@ -127,12 +159,9 @@ Toggle focused window between tiled and floating state.
 Sets floating layout.
 .TP
 .B Mod4\-f
-Toggle focused window between tiled and floating state.
-.TP
-.B Mod4\-Shift\-f
 Make the window fullscreen
 .TP
-.B Mod4\-Shift\-Tab
+.B Mod4\-Shift\-f
 Make the window fake fullscreen
 .TP
 .B Mod4\-j
@@ -231,10 +260,10 @@ Uses
 to decrease the volume by 1 or 10 using shift.
 .TP
 .B Brightness up
-Uses a custom scrip to increase brightness.
+Increase brightness [custom script].
 .TP
 .B Brightness down
-Uses a custom scrip to decrease brightness.
+Decrease brightness [custom script].
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.

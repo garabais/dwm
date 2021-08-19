@@ -90,7 +90,10 @@ static const char audiodowncmd[]       = "pulsemixer --change-volume -1 && pkill
 static const char audioupmulticmd[]    = "pulsemixer --change-volume +10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
 static const char audiodownmulticmd[]  = "pulsemixer --change-volume -10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
 static const char audiomutecmd[]       = "pulsemixer --toggle-mute && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
-static const char screenshotcmd[]      = "maim -s -u | xclip -selection clipboard -t image/png -i";
+static const char screenshotcmd[]      = "~/.local/bin/screenshot";
+static const char screenshotshowcmd[]  = "~/.local/bin/screenshot --show";
+static const char monitorshotcmd[]     = "~/.local/bin/screenshot --monitor";
+static const char monitorshotshowcmd[] = "~/.local/bin/screenshot --monitor --show";
 
 #include "movestack.c"
 
@@ -104,6 +107,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_n,               spawn,                  {.v = incognitobrowsercmd } },
 	{ MODKEY,                       XK_grave,           spawn,                  {.v = unicodeselectorcmd } },
 	{ MODKEY,                       XK_p,               spawn,                  SHCMD(screenshotcmd) },
+	{ MODKEY|ShiftMask,             XK_p,               spawn,                  SHCMD(screenshotshowcmd) },
+	{ MODKEY|ControlMask,           XK_p,               spawn,                  SHCMD(monitorshotcmd) },
+	{ MODKEY|ControlMask|ShiftMask, XK_p,               spawn,                  SHCMD(monitorshotshowcmd) },
 	{ MODKEY,                       XK_b,               togglebar,              {0} },
 	{ MODKEY,                       XK_j,               focusstack,             {.i = +1 } },
 	{ MODKEY,                       XK_k,               focusstack,             {.i = -1 } },
