@@ -84,15 +84,19 @@ static const char *audioprevcmd[]         = { "playerctl", "previous", NULL };
 static const char powermenucmd[]       = "~/.local/bin/powermenu";
 static const char brightnessupcmd[]    = "~/.local/bin/backlight -i 750";
 static const char brightnessdowncmd[]  = "~/.local/bin/backlight -d 750";
-static const char audioupcmd[]         = "pulsemixer --change-volume +1 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
-static const char audiodowncmd[]       = "pulsemixer --change-volume -1 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
-static const char audioupmulticmd[]    = "pulsemixer --change-volume +10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
-static const char audiodownmulticmd[]  = "pulsemixer --change-volume -10 && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
-static const char audiomutecmd[]       = "pulsemixer --toggle-mute && pkill -RTMIN+1 dwmblocks"; // send update signal 1 (audio) to dwmblocks
 static const char screenshotcmd[]      = "~/.local/bin/screenshot";
 static const char screenshotshowcmd[]  = "~/.local/bin/screenshot --show";
 static const char monitorshotcmd[]     = "~/.local/bin/screenshot --monitor";
 static const char monitorshotshowcmd[] = "~/.local/bin/screenshot --monitor --show";
+
+/* Volume scripts */
+/* Volume custom script calls pulsemixer with the same arguments and sends a signal to dwmblocks to update */
+/* volume --change-volume +1 equals pulsemixer --change-volume +1 && pkill -RTMIN+1 dwmblocks */
+static const char audioupcmd[]         = "~/.local/bin/volume --change-volume +1 ";
+static const char audiodowncmd[]       = "~/.local/bin/volume --change-volume -1 ";
+static const char audioupmulticmd[]    = "~/.local/bin/volume --change-volume +10";
+static const char audiodownmulticmd[]  = "~/.local/bin/volume --change-volume -10";
+static const char audiomutecmd[]       = "~/.local/bin/volume --toggle-mute"; 
 
 #include "movestack.c"
 
