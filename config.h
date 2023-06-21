@@ -130,6 +130,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,               setlayout,          {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_s,               setlayout,          {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,               setlayout,          {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_f,               togglefakefullscreen,{0} },
 	{ MODKEY|ShiftMask,             XK_Tab,             setlayout,          {0} },
 	{ MODKEY,                       XK_0,               view,               {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,               tag,                {.ui = ~0 } },
