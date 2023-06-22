@@ -220,6 +220,7 @@ static void togglebar(const Arg *arg);
 static void togglefakefullscreen(const Arg *arg);
 static void togglefloating(const Arg *arg);
 static void toggletag(const Arg *arg);
+static void togglefullscreen(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
@@ -1932,6 +1933,19 @@ togglefloating(const Arg *arg)
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
+}
+
+void
+togglefullscreen(const Arg *arg) {
+    Client *c = selmon->sel;
+    if (!c)
+        return;
+
+    if(c->fakefullscreen == 1) { // fake fullscreen --> fullscreen
+        c->fakefullscreen = 2;
+        setfullscreen(selmon->sel, 1);
+    }
+    setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
